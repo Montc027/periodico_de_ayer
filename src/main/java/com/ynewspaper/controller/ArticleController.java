@@ -1,7 +1,6 @@
 package com.ynewspaper.controller;
 
 import com.ynewspaper.dto.ArticleDTO;
-import com.ynewspaper.entity.Article;
 import com.ynewspaper.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ public class ArticleController {
 }
 
     @PostMapping
-    public Article createArticle(@RequestBody ArticleDTO dto) {
+    public ArticleDTO createArticle(@RequestBody ArticleDTO dto) {
         return articleService.createArticle(dto);
        
     }
