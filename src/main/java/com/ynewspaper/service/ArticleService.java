@@ -1,5 +1,7 @@
 package com.ynewspaper.service;
 
-public class ArticleService {
-    
+import com.ynewspaper.dto.ArticleDTO;
+import com.ynewspaper.entity.Article;
+public interface ArticleService {
+    Article createArticle(ArticleDTO dto);
 }
