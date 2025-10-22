@@ -24,7 +24,14 @@ public class ArticleController {
             @RequestBody Article updatedArticle) {
         Article article = articleService.updateArticle(id, updatedArticle);
         return ResponseEntity.ok(article);
+
+        
     }
 
-    
+    // Eliminar un artículo
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteArticle(@PathVariable Long id) {
+        articleService.deleteArticle(id);
+        return ResponseEntity.ok("Artículo eliminado correctamente");
+    }
 }
