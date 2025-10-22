@@ -16,9 +16,10 @@ public class YnewspaperApplication {
         System.setProperty("spring.datasource.url", dotenv.get("DB_URL"));
         System.setProperty("spring.datasource.username", dotenv.get("DB_USERNAME"));
         System.setProperty("spring.datasource.password", dotenv.get("DB_PASSWORD"));
+        System.setProperty("spring.datasource.driver-class-name", "org.postgresql.Driver");
 
         SpringApplication.run(YnewspaperApplication.class, args);
 
-        System.out.println("Conexión exitosa con la base de datos");
+        System.out.println("Conexión exitosa a PostgreSQL: " + dotenv.get("DB_URL"));
     }
 }
