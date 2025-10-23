@@ -8,10 +8,10 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class YnewspaperApplication {
     public static void main(String[] args) {
         Dotenv dotenv = Dotenv.configure()
-                              .directory(".")
-                              .ignoreIfMalformed()
-                              .ignoreIfMissing()
-                              .load();
+                .directory(".")
+                .ignoreIfMalformed()
+                .ignoreIfMissing()
+                .load();
 
         System.setProperty("spring.datasource.url", dotenv.get("DB_URL"));
         System.setProperty("spring.datasource.username", dotenv.get("DB_USERNAME"));

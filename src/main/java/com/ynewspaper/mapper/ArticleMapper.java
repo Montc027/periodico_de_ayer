@@ -5,6 +5,7 @@ import com.ynewspaper.entity.Article;
 import com.ynewspaper.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import com.ynewspaper.mapper.ArticleMapper;
 
 @Mapper(componentModel = "spring")
 public interface ArticleMapper {

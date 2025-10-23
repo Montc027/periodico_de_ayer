@@ -4,7 +4,6 @@ import com.ynewspaper.dto.UserDTO;
 import com.ynewspaper.entity.User;
 import com.ynewspaper.mapper.UserMapper;
 import com.ynewspaper.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +12,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    @Autowired
+
     public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;

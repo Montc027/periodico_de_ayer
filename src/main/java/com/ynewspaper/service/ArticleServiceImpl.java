@@ -46,7 +46,6 @@ import com.ynewspaper.entity.User;
 import com.ynewspaper.repository.ArticleRepository;
 import com.ynewspaper.repository.UserRepository;
 import com.ynewspaper.mapper.ArticleMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -58,10 +57,10 @@ public class ArticleServiceImpl implements ArticleService {
     private final UserRepository userRepository;
     private final ArticleMapper articleMapper;
 
-    @Autowired
+  
     public ArticleServiceImpl(ArticleRepository articleRepository,
-                              UserRepository userRepository,
-                              ArticleMapper articleMapper) {
+            UserRepository userRepository,
+            ArticleMapper articleMapper) {
         this.articleRepository = articleRepository;
         this.userRepository = userRepository;
         this.articleMapper = articleMapper;
@@ -113,5 +112,3 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.deleteById(id);
     }
 }
-
-
