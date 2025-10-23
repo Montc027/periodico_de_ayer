@@ -1,7 +1,10 @@
 package com.ynewspaper.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.ynewspaper.entity.Article;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
+    List<Article> findByUserId(Long userId);
+    List<Article> findByArticleId(String id);
 }

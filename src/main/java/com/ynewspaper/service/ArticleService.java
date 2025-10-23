@@ -1,16 +1,16 @@
-package com.ynewspaper.service;
+/*package com.ynewspaper.service;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ynewspaper.entity.Article;
 import com.ynewspaper.repository.ArticleRepository;
+import com.ynewspaper.dto.ArticleDTO;
 
-@Service
-public class ArticleService {
 
+public interface ArticleService {
+    
+ArticleDTO createArticle(ArticleDTO dto);
     @Autowired
     private ArticleRepository articleRepository;
 
@@ -54,4 +54,19 @@ public class ArticleService {
 
         articleRepository.delete(articleOpt.get());
     }
+}
+*/
+
+package com.ynewspaper.service;
+
+import com.ynewspaper.dto.ArticleDTO;
+import com.ynewspaper.entity.Article;
+
+public interface ArticleService {
+
+    ArticleDTO createArticle(ArticleDTO dto);
+
+    Article updateArticle(Long id, Article updatedArticle);
+
+    void deleteArticle(Long id);
 }

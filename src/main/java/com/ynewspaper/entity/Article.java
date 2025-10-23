@@ -1,19 +1,24 @@
 package com.ynewspaper.entity;
 
-import java.time.LocalDateTime;
 import jakarta.persistence.*;
+import lombok.Data;
+import java.time.LocalDate;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
 
+
+@Data
 @Entity
 @Table(name = "articles")
-@Data
-public class Article {
 
+public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @NotBlank
     @Size(max = 255)
@@ -25,9 +30,7 @@ public class Article {
     private String content;
 
     private String category;
-    private LocalDateTime publicationDate;
+    private LocalDate publicationDate;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    
 }

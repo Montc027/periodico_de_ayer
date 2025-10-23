@@ -1,21 +1,31 @@
 package com.ynewspaper.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import com.ynewspaper.entity.Article;
+import com.ynewspaper.dto.ArticleDTO;
 import com.ynewspaper.service.ArticleService;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import com.ynewspaper.entity.Article;
 import java.util.List;
 
-@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/api/articles")
+@SuppressWarnings("unused")
 @CrossOrigin(origins = "*")
 public class ArticleController {
-
     @Autowired
-    private ArticleService articleService;
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
+}
+
+    @PostMapping
+    public ArticleDTO createArticle(@RequestBody ArticleDTO dto) {
+        return articleService.createArticle(dto);
+       
+    }
+    
+    @Autowired
+    private final ArticleService articleService;
 
     // Actualizar un artículo existente
     @PutMapping("/{id}")
@@ -28,3 +38,4 @@ public class ArticleController {
 
     
 }
+

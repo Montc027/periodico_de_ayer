@@ -2,20 +2,27 @@ package com.ynewspaper.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.List;
 
-@Entity
-@Table(name = "users") // Nombre de la tabla en la base de datos
 @Data
-public class User {
+@Entity
+@Table(name = "users")
 
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+  
+    @Column(nullable = false, length = 100)
+    private String name;
 
-    private String username;
+    @Column(nullable = false, unique = true, length = 255)
     private String email;
-
-    // Si quieres, puedes agregar relación inversa con Article
-    // @OneToMany(mappedBy = "user")
-    // private List<Article> articles;
+   
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Article> articles;
+    
 }
+
+
+
