@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import com.ynewspaper.entity.Article;
 import com.ynewspaper.service.ArticleService;
 
-import java.util.List;
-
-@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/api/articles")
 @CrossOrigin(origins = "*")
@@ -26,5 +23,11 @@ public class ArticleController {
         return ResponseEntity.ok(article);
     }
 
-    
+    // Eliminar un artículo por ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteArticle(@PathVariable Long id) {
+        String message = articleService.deleteArticle(id);
+        return ResponseEntity.ok(message);
+    }
 }
+

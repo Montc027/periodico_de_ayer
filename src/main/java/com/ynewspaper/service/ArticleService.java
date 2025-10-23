@@ -1,10 +1,8 @@
 package com.ynewspaper.service;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ynewspaper.entity.Article;
 import com.ynewspaper.repository.ArticleRepository;
 
@@ -44,14 +42,19 @@ public class ArticleService {
         return articleRepository.save(existingArticle);
     }
 
-    // Eliminar un artículo por ID
-    public void deleteArticle(Long id) {
+    // Eliminar un artículo por ID (con manejo de errores dentro del service)
+    public String deleteArticle(Long id) {
         Optional<Article> articleOpt = articleRepository.findById(id);
 
         if (articleOpt.isEmpty()) {
             throw new RuntimeException("Artículo con ID " + id + " no encontrado");
         }
 
-        articleRepository.delete(articleOpt.get());
+        try {
+            articleRepository.delete(articleOpt.get());
+            return "Artículo con ID " + id + " eliminado correctamente.";
+        } catch (Exception e) {
+            throw new RuntimeException("Error al eliminar el artículo con ID " + id + ": " + e.getMessage());
+        }
     }
 }
