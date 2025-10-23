@@ -15,9 +15,20 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
-    // Listar todos los artículos
+    //  Listar todos los artículos
     public List<Article> getAllArticles() {
         return articleRepository.findAll();
+    }
+
+    //  Obtener un artículo por ID
+    public Article getArticleById(Long id) {
+        Optional<Article> articleOpt = articleRepository.findById(id);
+
+        if (articleOpt.isEmpty()) {
+            throw new RuntimeException("Artículo con ID " + id + " no encontrado");
+        }
+
+        return articleOpt.get();
     }
 
     // Actualizar un artículo existente

@@ -24,6 +24,13 @@ public class ArticleController {
         return ResponseEntity.ok(articles);
     }
 
+    // Obtener artículo por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
+        Article article = articleService.getArticleById(id);
+        return ResponseEntity.ok(article);
+    }
+
     // Actualizar un artículo existente
     @PutMapping("/{id}")
     public ResponseEntity<Article> updateArticle(
