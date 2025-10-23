@@ -1,5 +1,16 @@
 package com.ynewspaper.service;
 
+import com.ynewspaper.dto.UserDTO;
+
+public interface UserService {
+    UserDTO createUser(String name, String email);
+    UserDTO getUserWithArticles(Long id);
+}
+
+/*
+package com.ynewspaper.service;
+
+import com.ynewspaper.dto.UserDTO;
 import com.ynewspaper.entity.User;
 import com.ynewspaper.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +36,4 @@ public class UserService {
 
         return userRepository.save(user);
     }
-}
+} */
