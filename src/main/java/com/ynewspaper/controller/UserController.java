@@ -1,6 +1,5 @@
 package com.ynewspaper.controller;
 
-import com.ynewspaper.entity.*;
 import com.ynewspaper.dto.UserDTO;
 import com.ynewspaper.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
