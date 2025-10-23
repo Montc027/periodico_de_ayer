@@ -3,8 +3,11 @@ package com.ynewspaper.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import com.ynewspaper.entity.Article;
 import com.ynewspaper.service.ArticleService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -13,6 +16,13 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+
+    //  Listar todos los artículos
+    @GetMapping
+    public ResponseEntity<List<Article>> getAllArticles() {
+        List<Article> articles = articleService.getAllArticles();
+        return ResponseEntity.ok(articles);
+    }
 
     // Actualizar un artículo existente
     @PutMapping("/{id}")
@@ -30,4 +40,3 @@ public class ArticleController {
         return ResponseEntity.ok(message);
     }
 }
-

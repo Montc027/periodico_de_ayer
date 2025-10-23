@@ -1,8 +1,11 @@
 package com.ynewspaper.service;
 
+import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.ynewspaper.entity.Article;
 import com.ynewspaper.repository.ArticleRepository;
 
@@ -11,6 +14,11 @@ public class ArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    // Listar todos los artículos
+    public List<Article> getAllArticles() {
+        return articleRepository.findAll();
+    }
 
     // Actualizar un artículo existente
     public Article updateArticle(Long id, Article updatedArticle) {
@@ -22,7 +30,6 @@ public class ArticleService {
 
         Article existingArticle = existingArticleOpt.get();
 
-        // Actualiza solo los campos que tengan datos válidos
         if (updatedArticle.getTitle() != null && !updatedArticle.getTitle().isBlank()) {
             existingArticle.setTitle(updatedArticle.getTitle());
         }
@@ -42,7 +49,7 @@ public class ArticleService {
         return articleRepository.save(existingArticle);
     }
 
-    // Eliminar un artículo por ID (con manejo de errores dentro del service)
+    // Eliminar un artículo por ID
     public String deleteArticle(Long id) {
         Optional<Article> articleOpt = articleRepository.findById(id);
 
