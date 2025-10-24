@@ -19,18 +19,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO createUser(String name, String email) {
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
-        User saved = userRepository.save(user);
-        return userMapper.toDTO(saved);
+    public User createUser(UserDTO dto) {
+        User user = userMapper.toEntity(dto);
+        return userRepository.save(user); 
     }
 
     @Override
     public UserDTO getUserWithArticles(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUserWithArticles'");
+    }
+
+    /*@Override
+    public UserDTO getUserWithArticles(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return userMapper.toDTO(user);
-    }
+    }*/
 }

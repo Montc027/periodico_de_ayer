@@ -1,14 +1,16 @@
 package com.ynewspaper.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class UserDTO {
-    private Long id;
     private String name;
     private String email;
 
-    private List<ArticleDTO> articles;
     
 }

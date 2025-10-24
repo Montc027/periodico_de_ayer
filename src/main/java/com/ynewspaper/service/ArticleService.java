@@ -62,7 +62,7 @@ ArticleDTO createArticle(ArticleDTO dto);
 }
 */
 
-package com.ynewspaper.service;
+/*package com.ynewspaper.service;
 
 import com.ynewspaper.dto.ArticleDTO;
 import com.ynewspaper.entity.Article;
@@ -74,4 +74,4 @@ public interface ArticleService {
     Article updateArticle(Long id, Article updatedArticle);
 
     void deleteArticle(Long id);
-}
+}*/

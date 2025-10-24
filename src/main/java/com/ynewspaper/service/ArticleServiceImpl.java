@@ -38,7 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
 }*/
 
-package com.ynewspaper.service;
+/*package com.ynewspaper.service;
 
 import com.ynewspaper.dto.ArticleDTO;
 import com.ynewspaper.entity.Article;
@@ -112,3 +112,4 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.deleteById(id);
     }
 }
+*/

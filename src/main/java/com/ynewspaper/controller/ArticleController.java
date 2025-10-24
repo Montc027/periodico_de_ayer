@@ -1,4 +1,4 @@
-package com.ynewspaper.controller;
+/*package com.ynewspaper.controller;
 
 import com.ynewspaper.dto.ArticleDTO;
 import com.ynewspaper.service.ArticleService;
@@ -42,5 +42,5 @@ public class ArticleController {
         articleService.deleteArticle(id);
         return ResponseEntity.ok("Article deleted successfully");
     }
-}
+}*/
 

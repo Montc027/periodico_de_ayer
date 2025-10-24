@@ -3,14 +3,9 @@ package com.ynewspaper.mapper;
 import com.ynewspaper.dto.UserDTO;
 import com.ynewspaper.entity.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import com.ynewspaper.mapper.UserMapper;
 
-@Mapper(componentModel = "spring", uses = {ArticleMapper.class})
+@Mapper(componentModel = "spring")
 public interface UserMapper {
-
-    @Mapping(target = "articles", source = "articles")
-    UserDTO toDTO(User user);
 
     User toEntity(UserDTO userDTO);
 }

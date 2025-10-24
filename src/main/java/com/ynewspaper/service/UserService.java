@@ -1,9 +1,10 @@
 package com.ynewspaper.service;
 
+import com.ynewspaper.entity.User;
 import com.ynewspaper.dto.UserDTO;
 
 public interface UserService {
-    UserDTO createUser(String name, String email);
+    User createUser(UserDTO dto);
     UserDTO getUserWithArticles(Long id);
 }
 
