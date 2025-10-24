@@ -1,46 +1,103 @@
 package com.ynewspaper;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
+
+import com.ynewspaper.controller.ArticleController;
 import com.ynewspaper.entity.Article;
 import com.ynewspaper.service.ArticleService;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/articles")
-@CrossOrigin(origins = "*")
 public class ArticleControllerTest {
 
-    @Autowired
+    @Test
+    void testName() {
+        
+    }
+
+    @Mock
     private ArticleService articleService;
 
-    @GetMapping
-    public ResponseEntity<List<Article>> getAllArticles() {
-        List<Article> articles = articleService.getAllArticles();
-        return ResponseEntity.ok(articles);
+    @InjectMocks
+    private ArticleController articleController;
+
+    private Article article1;
+    private Article article2;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        article1 = new Article();
+        article1.setId(1L);
+        article1.setTitle("Primer artículo");
+        article1.setContent("Contenido del primer artículo con más de 50 caracteres para cumplir la validación.");
+        article1.setCategory("Noticias");
+        article1.setPublicationDate(LocalDateTime.now());
+
+        article2 = new Article();
+        article2.setId(2L);
+        article2.setTitle("Segundo artículo");
+        article2.setContent("Contenido del segundo artículo con más de 50 caracteres para cumplir la validación.");
+        article2.setCategory("Deportes");
+        article2.setPublicationDate(LocalDateTime.now());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
-        Article article = articleService.getArticleById(id);
-        return ResponseEntity.ok(article);
+    @Test
+    void testGetAllArticles() {
+        List<Article> articles = Arrays.asList(article1, article2);
+        when(articleService.getAllArticles()).thenReturn(articles);
+
+        ResponseEntity<List<Article>> response = articleController.getAllArticles();
+
+        assertEquals(2, response.getBody().size());
+        verify(articleService, times(1)).getAllArticles();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Article> updateArticle(
-            @PathVariable Long id,
-            @RequestBody Article updatedArticle) {
-        Article article = articleService.updateArticle(id, updatedArticle);
-        return ResponseEntity.ok(article);
+    @Test
+    void testGetArticleById() {
+        when(articleService.getArticleById(1L)).thenReturn(article1);
+
+        ResponseEntity<Article> response = articleController.getArticleById(1L);
+
+        assertEquals("Primer artículo", response.getBody().getTitle());
+        verify(articleService, times(1)).getArticleById(1L);
     }
 
- 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteArticle(@PathVariable Long id) {
-        String message = articleService.deleteArticle(id);
-        return ResponseEntity.ok(message);
+    @Test
+    void testUpdateArticle() {
+        Article updatedArticle = new Article();
+        updatedArticle.setTitle("Artículo actualizado");
+        updatedArticle.setContent("Contenido actualizado con más de 50 caracteres para pasar la validación.");
+
+        when(articleService.updateArticle(1L, updatedArticle)).thenReturn(updatedArticle);
+
+        ResponseEntity<Article> response = articleController.updateArticle(1L, updatedArticle);
+
+        assertEquals("Artículo actualizado", response.getBody().getTitle());
+        verify(articleService, times(1)).updateArticle(1L, updatedArticle);
+    }
+
+    @Test
+    void testDeleteArticle() {
+        when(articleService.deleteArticle(1L)).thenReturn("Artículo con ID 1 eliminado correctamente.");
+
+        ResponseEntity<String> response = articleController.deleteArticle(1L);
+
+        assertEquals("Artículo con ID 1 eliminado correctamente.", response.getBody());
+        verify(articleService, times(1)).deleteArticle(1L);
     }
 }
