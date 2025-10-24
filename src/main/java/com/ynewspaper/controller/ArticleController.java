@@ -2,9 +2,13 @@ package com.ynewspaper.controller;
 
 import com.ynewspaper.service.ArticleService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
-import com.ynewspaper.entity.Article;
+
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
+import com.ynewspaper.entity.Article;
+
 
 @RestController
 @RequestMapping("/api/articles")
@@ -50,4 +54,3 @@ public class ArticleController {
         return ResponseEntity.ok("Article deleted successfully");
     }
 }
-

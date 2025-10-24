@@ -3,6 +3,8 @@ package com.ynewspaper.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -31,6 +33,12 @@ public class Article {
 
     private String category;
     private LocalDate publicationDate;
+    public void setPublicationDate(LocalDateTime of) {
+        throw new UnsupportedOperationException("Unimplemented method 'setPublicationDate'");
+    }
+    public void setPublicationDate(LocalDate now) {
+        throw new UnsupportedOperationException("Unimplemented method 'setPublicationDate'");
+    }
 
     
 }
