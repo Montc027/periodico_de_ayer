@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +35,7 @@ public class ArticleServiceTest<articleService> {
         article.setTitle("Título original");
         article.setContent("Contenido original con más de 50 caracteres de ejemplo para test.");
         article.setCategory("Noticias");
-        article.setPublicationDate(LocalDateTime.now());
+        article.setPublicationDate(LocalDate.now());
     }
 
     @Test

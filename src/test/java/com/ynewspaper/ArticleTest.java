@@ -11,7 +11,6 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,11 +70,15 @@ public class ArticleTest {
         a.setTitle("Nuevo título");
         a.setContent("Contenido con al menos cincuenta caracteres para que sea válido y pase la validación.");
         a.setCategory("Deportes");
-        a.setPublicationDate(LocalDateTime.of(2025, 1, 1, 10, 30));
+        a.setPublicationDate(LocalDate(2025, 1, 1));
 
         assertEquals(2L, a.getId());
         assertEquals("Nuevo título", a.getTitle());
         assertEquals("Deportes", a.getCategory());
-        assertEquals(LocalDateTime.of(2025, 1, 1, 10, 30), a.getPublicationDate());
+        assertEquals(LocalDate(2025, 1, 1), a.getPublicationDate());
+    }
+
+    private LocalDate LocalDate(int i, int j, int k) {
+        throw new UnsupportedOperationException("Unimplemented method 'LocalDate'");
     }
 }
