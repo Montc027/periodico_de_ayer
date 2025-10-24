@@ -8,8 +8,7 @@ import com.ynewspaper.repository.ArticleRepository;
 
 public interface ArticleService {
     
-Article createArticle(ArticleService articleService);
-    
+
     public static final ArticleRepository articleRepository = null;
 
     // Actualizar un artículo existente
@@ -58,7 +57,10 @@ Article createArticle(ArticleService articleService);
         }
     }
 
-    List<Article> getAllArticles();
+
+    public default List<Article> getAllArticles(){
+        return articleRepository.findAll();
+    };
 
     Article getArticleById(Long id);
 

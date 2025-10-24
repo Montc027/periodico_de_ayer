@@ -5,7 +5,9 @@ import com.ynewspaper.entity.User;
 import com.ynewspaper.repository.ArticleRepository;
 import com.ynewspaper.repository.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -13,88 +15,45 @@ public class ArticleServiceImpl implements ArticleService {
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
 
-    public ArticleServiceImpl(ArticleRepository articleRepository, 
-                            UserRepository userRepository) {
-                                        this.articleRepository = articleRepository;
-                                        this.userRepository = userRepository;
-                                        
-                            }
+    public ArticleServiceImpl(ArticleRepository articleRepository,
+            UserRepository userRepository) {
+        this.articleRepository = articleRepository;
+        this.userRepository = userRepository;
 
-    @SuppressWarnings("null")
+    }
+
     @Override
     public Article createArticle(Article article) {
-        // Validate input
         if (article == null) {
             throw new IllegalArgumentException("Article must not be null");
         }
 
-        // Extract user id from the incoming article (expects article.getUser() to exist)
-        Long userId = null;
-        if (article.getUser() != null) {
+        Long userId = (article.getUser() != null) ? article.getUser().getId() : null;
+        if (userId == null) {
+            throw new IllegalArgumentException("Article must include a valid user id");
         }
 
-        // Load managed user entity
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Attach the managed user and save the article
-        article.setUser(user);
-        Article savedArticle = articleRepository.save(article);
-        return savedArticle;
-    }
+        if (article.getPublicationDate() == null) {
+            article.setPublicationDate(LocalDate.now());
+        }
 
-    @Override
-    public Article createArticle(ArticleService articleService) {
-        throw new UnsupportedOperationException("Unimplemented method 'createArticle'");
+        article.setUser(user);
+        return articleRepository.save(article);
     }
 
     @Override
     public List<Article> getAllArticles() {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllArticles'");
+        return articleRepository.findAll();
+
     }
 
     @Override
     public Article getArticleById(Long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'getArticleById'");
-    }
-}
-
-/*package com.ynewspaper.service;
-
-import com.ynewspaper.dto.ArticleDTO;
-import com.ynewspaper.entity.Article;
-import com.ynewspaper.entity.User;
-import com.ynewspaper.repository.ArticleRepository;
-import com.ynewspaper.repository.UserRepository;
-import com.ynewspaper.mapper.ArticleMapper;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-
-@Service
-public class ArticleServiceImpl implements ArticleService {
-
-    private final ArticleRepository articleRepository;
-    private final UserRepository userRepository;
-    private final ArticleMapper articleMapper;
-
-  
-    public ArticleServiceImpl(ArticleRepository articleRepository,
-            UserRepository userRepository,
-            ArticleMapper articleMapper) {
-        this.articleRepository = articleRepository;
-        this.userRepository = userRepository;
-        this.articleMapper = articleMapper;
-    }
-
-    @Override
-    public ArticleDTO createArticle(ArticleDTO dto) {
-        User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        Article article = articleMapper.toEntity(dto, user);
-        Article savedArticle = articleRepository.save(article);
-        return articleMapper.toDTO(savedArticle);
+        return articleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Artículo con ID " + id + " no encontrado"));
     }
 
     @Override
@@ -126,11 +85,54 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void deleteArticle(Long id) {
-        if (!articleRepository.existsById(id)) {
-            throw new RuntimeException("Artículo con ID " + id + " no encontrado");
-        }
-        articleRepository.deleteById(id);
+    public String deleteArticle(Long id) {
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Artículo con ID " + id + " no encontrado"));
+
+        articleRepository.delete(article);
+        return "Artículo eliminado correctamente";
     }
 }
-*/
+
+/*
+ * package com.ynewspaper.service;
+ * 
+ * import com.ynewspaper.dto.ArticleDTO;
+ * import com.ynewspaper.entity.Article;
+ * import com.ynewspaper.entity.User;
+ * import com.ynewspaper.repository.ArticleRepository;
+ * import com.ynewspaper.repository.UserRepository;
+ * import com.ynewspaper.mapper.ArticleMapper;
+ * import org.springframework.stereotype.Service;
+ * 
+ * import java.util.Optional;
+ * 
+ * @Service
+ * public class ArticleServiceImpl implements ArticleService {
+ * 
+ * private final ArticleRepository articleRepository;
+ * private final UserRepository userRepository;
+ * private final ArticleMapper articleMapper;
+ * 
+ * 
+ * public ArticleServiceImpl(ArticleRepository articleRepository,
+ * UserRepository userRepository,
+ * ArticleMapper articleMapper) {
+ * this.articleRepository = articleRepository;
+ * this.userRepository = userRepository;
+ * this.articleMapper = articleMapper;
+ * }
+ * 
+ * @Override
+ * public ArticleDTO createArticle(ArticleDTO dto) {
+ * User user = userRepository.findById(dto.getUserId())
+ * .orElseThrow(() -> new RuntimeException("User not found"));
+ * 
+ * Article article = articleMapper.toEntity(dto, user);
+ * Article savedArticle = articleRepository.save(article);
+ * return articleMapper.toDTO(savedArticle);
+ * }
+ * 
+ * 
+ * }
+ */

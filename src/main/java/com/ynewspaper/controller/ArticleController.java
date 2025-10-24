@@ -18,7 +18,7 @@ public class ArticleController {
 
     @PostMapping
     public Article createArticle(@RequestBody Article article) {
-        return articleService.createArticle(articleService);
+        return articleService.createArticle(article);
 
     }
     //  Listar todos los artículos
