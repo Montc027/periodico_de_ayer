@@ -1,4 +1,4 @@
-`# 📰 Periódico de Ayer  
+## 📰 Periódico de Ayer  
 API REST para crear, leer, actualizar y borrar artículos de opinión **sin registro**.  
 Basta con proporcionar **nombre** y **correo electrónico**.
 
