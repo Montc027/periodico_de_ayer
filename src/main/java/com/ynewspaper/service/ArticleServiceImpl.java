@@ -1,12 +1,10 @@
-/*package com.ynewspaper.service;
+package com.ynewspaper.service;
 
-import com.ynewspaper.dto.ArticleDTO;
 import com.ynewspaper.entity.Article;
 import com.ynewspaper.entity.User;
 import com.ynewspaper.repository.ArticleRepository;
 import com.ynewspaper.repository.UserRepository;
-import com.ynewspaper.mapper.ArticleMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,29 +12,52 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
-    private final ArticleMapper articleMapper;
 
-    @Autowired
     public ArticleServiceImpl(ArticleRepository articleRepository, 
-                            UserRepository userRepository,
-                            ArticleMapper articleMapper) {
+                            UserRepository userRepository) {
                                         this.articleRepository = articleRepository;
                                         this.userRepository = userRepository;
-                                        this.articleMapper = articleMapper;
+                                        
                             }
 
+    @SuppressWarnings("null")
     @Override
-    public ArticleDTO createArticle(ArticleDTO dto) {
-        User user = userRepository.findById(dto.getUserId())
-        .orElseThrow(() -> new RuntimeException("User not found"));
-        
-        Article article = articleMapper.toEntity(dto, user);
-
-        Article savedArticle = articleRepository.save(article);
-        return articleMapper.toDTO(savedArticle);
-
+    public Article createArticle(Article article) {
+        // Validate input
+        if (article == null) {
+            throw new IllegalArgumentException("Article must not be null");
         }
-}*/
+
+        // Extract user id from the incoming article (expects article.getUser() to exist)
+        Long userId = null;
+        if (article.getUser() != null) {
+        }
+
+        // Load managed user entity
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Attach the managed user and save the article
+        article.setUser(user);
+        Article savedArticle = articleRepository.save(article);
+        return savedArticle;
+    }
+
+    @Override
+    public Article createArticle(ArticleService articleService) {
+        throw new UnsupportedOperationException("Unimplemented method 'createArticle'");
+    }
+
+    @Override
+    public List<Article> getAllArticles() {
+        throw new UnsupportedOperationException("Unimplemented method 'getAllArticles'");
+    }
+
+    @Override
+    public Article getArticleById(Long id) {
+        throw new UnsupportedOperationException("Unimplemented method 'getArticleById'");
+    }
+}
 
 /*package com.ynewspaper.service;
 

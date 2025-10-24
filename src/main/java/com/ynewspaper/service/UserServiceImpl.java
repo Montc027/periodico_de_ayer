@@ -26,14 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserWithArticles(Long id) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'getUserWithArticles'");
     }
 
-    /*@Override
-    public UserDTO getUserWithArticles(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        return userMapper.toDTO(user);
-    }*/
+   
 }

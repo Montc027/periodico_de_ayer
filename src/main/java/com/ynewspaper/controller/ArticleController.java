@@ -1,6 +1,5 @@
-/*package com.ynewspaper.controller;
+package com.ynewspaper.controller;
 
-import com.ynewspaper.dto.ArticleDTO;
 import com.ynewspaper.service.ArticleService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -9,25 +8,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/articles")
-@SuppressWarnings("unused")
 @CrossOrigin(origins = "*")
 public class ArticleController {
 
-    
+    private ArticleService articleService;
     public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
 }
 
     @PostMapping
-    public ArticleDTO createArticle(@RequestBody ArticleDTO dto) {
-        return articleService.createArticle(dto);
+    public Article createArticle(@RequestBody Article article) {
+        return articleService.createArticle(articleService);
 
     }
-    
+    //  Listar todos los artículos
+    @GetMapping
+    public ResponseEntity<List<Article>> getAllArticles() {
+        List<Article> articles = articleService.getAllArticles();
+        return ResponseEntity.ok(articles);
+    }
 
-    private final ArticleService articleService;
-
-    // Actualizar un artículo existente
+    // Obtener artículo por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
+        Article article = articleService.getArticleById(id);
+        return ResponseEntity.ok(article);
+    }
+   // Actualizar un artículo existente
     @PutMapping("/{id}")
     public ResponseEntity<Article> updateArticle(
             @PathVariable Long id,
@@ -42,5 +49,5 @@ public class ArticleController {
         articleService.deleteArticle(id);
         return ResponseEntity.ok("Article deleted successfully");
     }
-}*/
+}
 

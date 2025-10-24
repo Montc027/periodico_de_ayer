@@ -1,21 +1,19 @@
-/*package com.ynewspaper.service;
+package com.ynewspaper.service;
 
+import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.ynewspaper.entity.Article;
 import com.ynewspaper.repository.ArticleRepository;
-import com.ynewspaper.dto.ArticleDTO;
 
 
 public interface ArticleService {
     
-ArticleDTO createArticle(ArticleDTO dto);
-    @Autowired
-    private ArticleRepository articleRepository;
+Article createArticle(ArticleService articleService);
+    
+    public static final ArticleRepository articleRepository = null;
 
     // Actualizar un artículo existente
-    public Article updateArticle(Long id, Article updatedArticle) {
+    public default Article updateArticle(Long id, Article updatedArticle) {
         Optional<Article> existingArticleOpt = articleRepository.findById(id);
 
         if (existingArticleOpt.isEmpty()) {
@@ -24,7 +22,7 @@ ArticleDTO createArticle(ArticleDTO dto);
 
         Article existingArticle = existingArticleOpt.get();
 
-        // Actualiza solo los campos que tengan datos válidos
+    // Actualiza solo los campos que tengan datos válidos
         if (updatedArticle.getTitle() != null && !updatedArticle.getTitle().isBlank()) {
             existingArticle.setTitle(updatedArticle.getTitle());
         }
@@ -45,7 +43,7 @@ ArticleDTO createArticle(ArticleDTO dto);
     }
 
     // Eliminar un artículo por ID (con manejo de errores dentro del service)
-    public String deleteArticle(Long id) {
+    public default String deleteArticle(Long id) {
         Optional<Article> articleOpt = articleRepository.findById(id);
 
         if (articleOpt.isEmpty()) {
@@ -59,8 +57,14 @@ ArticleDTO createArticle(ArticleDTO dto);
             throw new RuntimeException("Error al eliminar el artículo con ID " + id + ": " + e.getMessage());
         }
     }
+
+    List<Article> getAllArticles();
+
+    Article getArticleById(Long id);
+
+    Article createArticle(Article article);
 }
-*/
+
 
 /*package com.ynewspaper.service;
 
